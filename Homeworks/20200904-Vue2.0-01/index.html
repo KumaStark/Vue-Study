@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+        <button @click="handleClick($event)" :test="test+(123+123)">click</button>
+        <br>
+        count:{{count}}
+        <br>
+        double:{{returnDouble}}
+    </div>
+    <script>
+        app = new Vue({
+            el: "#app",
+            data: {
+                count: 0,
+                double: 0,
+                test: "123123",
+            },
+            methods: {
+                handleClick(e) {
+                    this.count++;
+                },
+            },
+            computed: {
+                returnDouble() {
+                    return this.count * 2;
+                }
+            },
+        });
+    </script>
+  </body>
+</html>
