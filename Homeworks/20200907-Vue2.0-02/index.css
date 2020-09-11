@@ -1,0 +1,15 @@
+.PhotoItem {
+    width: 200px;
+    float: left;
+  }
+
+.PhotoItem img {
+  width: 200px;
+  height: 120px;
+  cursor: pointer;
+  transition: all 0.6s;
+}
+
+.PhotoItem img:hover {
+  transform: scale(2);
+}

@@ -4,46 +4,108 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./vue.js"></script>
+    <link rel="stylesheet" href="./index.css" />
     <title>Document</title>
   </head>
   <body>
-    <div id="app">
-        <button @click="handleClick($event)" :test="test+(123+123)">click</button>
-        <br>
-        count:{{count}}
-        <br>
-        double:{{returnDouble}}
-        <br>
-        {{returnA}}-{{returnB}}-{{returnC}}
-    </div>
+    <div id="app"></div>
     <script>
-        app = new Vue({
-            el: "#app",
-            data: {
-                count: 0,
-                double: 0,
-                test: "123123",
+      // const PhotoItem = {
+      //   props: {
+      //     imgName: {
+      //       type: String,
+      //       default: "PhotoTitle",
+      //     },
+      //     imgSrc: {
+      //       type: String,
+      //       required: true,
+      //     },
+      //   },
+      //   template: `<div class="PhotoItem">
+      //           <img class="imgSrc" v-bind:src="imgSrc"/>
+      //           <br/>
+      //           <span class="imgName"><center>{{imgName}}</center></span>
+      //           </div>`,
+      // };
+      Vue.component("PhotoItem",{
+        props: {
+          imgName: {
+            type: String,
+            default: "PhotoTitle",
+          },
+          imgSrc: {
+            type: String,
+            required: true,
+          },
+        },
+        template: `<div class="PhotoItem">
+                <img class="imgSrc" v-bind:src="imgSrc"/>
+                <br/>
+                <span class="imgName"><center>{{imgName}}</center></span>
+                </div>`,
+      });
+      app = new Vue({
+        el: "#app",
+        // components: { PhotoItem },
+        template: `<div>
+            <button id="showPhoto" @click="handleClick">
+              <span v-if="eol==false">显示图片</span>
+              <span v-else>没有图片了</span>
+              </button>
+            <hr>
+            <div>
+            <PhotoItem v-for="(item,index) in showList" :key="index" :imgSrc="item.imgSrc" :imgName=item.imgName></PhotoItem>
+            </div>
+            </div>`,
+        data: {
+          photoList: [
+            {
+              imgName: "Doggy",
+              imgSrc:
+                "https://tse2-mm.cn.bing.net/th/id/OIP.bBAdHie9rVifIiTHcTEr-gHaE8?pid=Api&rs=1",
             },
-            methods: {
-                handleClick(e) {
-                    this.count++;
-                },
+            {
+              imgName: "Doggy",
+              imgSrc:
+                "https://tse2-mm.cn.bing.net/th/id/OIP.bBAdHie9rVifIiTHcTEr-gHaE8?pid=Api&rs=1",
             },
-            computed: {
-                returnDouble() {
-                    return this.count * 2;
-                },
-                returnA(){
-                    return this.count+"A"
-                },
-                returnB(){
-                    return this.count+"B"
-                },
-                returnC(){
-                    return this.count+"C"
-                }
+            {
+              imgName: "Doggy",
+              imgSrc:
+                "https://tse2-mm.cn.bing.net/th/id/OIP.bBAdHie9rVifIiTHcTEr-gHaE8?pid=Api&rs=1",
             },
-        });
+            {
+              imgName: "Doggy",
+              imgSrc:
+                "https://tse2-mm.cn.bing.net/th/id/OIP.bBAdHie9rVifIiTHcTEr-gHaE8?pid=Api&rs=1",
+            },
+            {
+              imgName: "Doggy",
+              imgSrc:
+                "https://tse2-mm.cn.bing.net/th/id/OIP.bBAdHie9rVifIiTHcTEr-gHaE8?pid=Api&rs=1",
+            },
+            {
+              imgName: "Doggy",
+              imgSrc:
+                "https://tse2-mm.cn.bing.net/th/id/OIP.bBAdHie9rVifIiTHcTEr-gHaE8?pid=Api&rs=1",
+            },
+          ],
+          showList: [],
+          eol: false,
+        },
+        methods: {
+          handleClick(e) {
+            if (this.photoList.length > 0) {
+              this.showList.push(this.photoList.pop());
+            } else {
+              this.eol = true;
+              let btn = document.getElementById("showPhoto");
+              btn.disabled = "disabled";
+              console.log(btn);
+            }
+          },
+        },
+      });
     </script>
   </body>
 </html>
